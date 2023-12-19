@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:28:17 by jose-lfe          #+#    #+#             */
-/*   Updated: 2023/12/12 14:02:18 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:25:06 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_check_n(t_list *lst);
+int		ft_check_n(t_list *lst);
 char	*ft_fill(t_list *moustache);
 
 char	*get_next_line(int fd)
 {
 	char			*buffer;
 	char			*line;
-	static	t_list	*moustache;
+	static t_list	*moustache;
 	int				fin;
 
 	fin = 1;
@@ -40,7 +40,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int    ft_check_n(t_list *lst)
+int	ft_check_n(t_list *lst)
 {
     char    *check;
 
