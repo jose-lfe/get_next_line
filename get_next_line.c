@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:28:17 by jose-lfe          #+#    #+#             */
-/*   Updated: 2023/12/19 15:25:06 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:28:30 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ char	*ft_fill(t_list *moustache)
 	char	*line;
 	int		i;
 	char	*tmp;
-	//t_list	*tmp;
 
-	//tmp = moustache;
 	while (moustache->next)
 	{
 		line = ft_strjoin(line, moustache->content);
@@ -74,6 +72,12 @@ char	*ft_fill(t_list *moustache)
 	if (tmp[i] == '\n')
 		i++;
 	res = malloc((ft_strlen(line) + i) * sizeof(char));
+	if (!res)
+		return (NULL);
+	while (line)
+		*res = *line;
+	
+	free(line);
 	return (res);
 }
 
