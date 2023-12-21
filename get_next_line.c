@@ -14,7 +14,7 @@
 
 int		ft_check_n(t_list *lst);
 char	*ft_fill(t_list *moustache);
-t_list	*ft_free_moustache(t_list *moustache);
+void	ft_free_moustache(t_list *moustache);
 void	*ft_calloc(size_t count, size_t size);
 
 char	*get_next_line(int fd)
@@ -38,15 +38,17 @@ char	*get_next_line(int fd)
 	}
 	line = ft_fill(moustache);
 	free(buffer);
-	moustache = ft_free_moustache(moustache); // transforme la derniere perle en la premiere
+	ft_free_moustache(moustache); // transforme la derniere perle en la premiere
 	return (line);
 }
 
-t_list	*ft_free_moustache(t_list *moustache)
+void	ft_free_moustache(t_list *moustache)
 {
 	t_list	*tmp_t;
 	char	*tmp_c;
 	int		i;
+	int		j;
+	char	*res;
 
 	while (moustache->next)
 	{
@@ -57,15 +59,24 @@ t_list	*ft_free_moustache(t_list *moustache)
 		moustache = tmp_t;
 	}
 	i = 0;
-	tmp_c = moustache->content;
+	while (moustache->content[i] != '\0')
+		i++;
+	j = ft_strlen(moustache->content);
+	tmp_c = calloc((i + 1 - j), sizeof(char));
+	while (i > j)
+		tmp_c[(i--) - j -1] = moustache->content[i - 1];
+	res = moustache->content;
+	free(res);
+	moustache->content = tmp_c;
+}
+/*	tmp_c = moustache->content;
 	while (tmp_c[i] != '\0' || tmp_c[i] != '\n')
 		i++;
 	if (tmp_c[i] == '\0');
 	{
 		free(tmp_c);
 		free(moustache);
-	}
-}
+	}*/
 
 int	ft_check_n(t_list *lst)
 {

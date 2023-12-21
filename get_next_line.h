@@ -28,6 +28,10 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
+int		ft_check_n(t_list *lst);
+char	*ft_fill(t_list *moustache);
+void	ft_free_moustache(t_list *moustache);
+void	*ft_calloc(size_t count, size_t size);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
