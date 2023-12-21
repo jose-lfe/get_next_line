@@ -14,6 +14,8 @@
 
 int		ft_check_n(t_list *lst);
 char	*ft_fill(t_list *moustache);
+t_list	*ft_free_moustache(t_list *moustache);
+void	*ft_calloc(size_t count, size_t size);
 
 char	*get_next_line(int fd)
 {
@@ -22,22 +24,47 @@ char	*get_next_line(int fd)
 	static t_list	*moustache;
 	int				fin;
 
-	fin = 1;
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (NULL);
-	buffer[BUFFER_SIZE - 1] = '\0';
-	while (fin != 0 || ft_check_n(ft_lstlast(moustache)) == 1)
+	fin = BUFFER_SIZE;
+	while (fin != BUFFER_SIZE || ft_check_n(ft_lstlast(moustache)) == 1)
 	{
+		buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+		if (!buffer)
+			return (NULL);
 		fin = read(fd, buffer, BUFFER_SIZE);
 		if (fin < 0)
 			return (NULL);
 		ft_lstadd_back(moustache, ft_lstnew(buffer)); // exemple : hello , world , stp\nd
+		free (buffer);
 	}
 	line = ft_fill(moustache);
 	free(buffer);
-	moustache = ft_free_moustache(*moustache); // transforme la derniere perle en la premiere
+	moustache = ft_free_moustache(moustache); // transforme la derniere perle en la premiere
 	return (line);
+}
+
+t_list	*ft_free_moustache(t_list *moustache)
+{
+	t_list	*tmp_t;
+	char	*tmp_c;
+	int		i;
+
+	while (moustache->next)
+	{
+		tmp_t = moustache->next;
+		tmp_c = moustache->content;
+		free(tmp_c);
+		free(moustache);
+		moustache = tmp_t;
+	}
+	i = 0;
+	tmp_c = moustache->content;
+	while (tmp_c[i] != '\0' || tmp_c[i] != '\n')
+		i++;
+	if (tmp_c[i] == '\0');
+	{
+		free(tmp_c);
+		free(moustache);
+	}
 }
 
 int	ft_check_n(t_list *lst)
@@ -54,6 +81,37 @@ int	ft_check_n(t_list *lst)
     return (1);
 }
 
+char	*ft_fill(t_list *moustache)
+{
+	char	*line;
+	t_list	*tmp;
+
+	tmp = moustache;
+	while (tmp)
+	{
+		line = ft_strjoin(line, tmp->content);
+		tmp = tmp->next;
+	}
+	return (line);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+    unsigned char	*tmp; // on déclare une string sur un pointeur temporaire
+    size_t			i; // on déclare un index
+
+    i = 0; // on initialise l'index à 0
+    tmp = (void *)malloc (count * size); // on alloue de la mémoire au pointeur en void de la taille du compte multiplié par la taille
+    if (!tmp) // si le pointeur n'existe pas, qu'il n'y a rien dedans
+        return (NULL); // on retourne NULL
+    while (i < count * size) // tant que l'index est plus petit que le compte fois la taille
+    {
+        tmp[i] = 0; // alors on met 0 à la place de l'index
+        i++; // et on continue d'incrémenter l'index
+    }
+    return (tmp); // on retourne enfin la string temporaire
+}
+/*
 char	*ft_fill(t_list *moustache)
 {
 	char	*res;
@@ -80,6 +138,7 @@ char	*ft_fill(t_list *moustache)
 	free(line);
 	return (res);
 }
+*/
 
 /*
 int	find_line();

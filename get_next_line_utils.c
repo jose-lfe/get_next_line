@@ -69,7 +69,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s1[j] != '\0')
 		res[i++] = s1[j++];
 	j = 0;
-	while (s2[j] != '\0')
+	while (s2[j] != '\0' || s2[j] != '\n')
+		res[i++] = s2[j++];
+	if (s2[j] == '\n')
 		res[i++] = s2[j++];
 	res[i] = '\0';
 	if (s1)
@@ -82,7 +84,9 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i] != '\0' || s[i] != '\n')
+		i++;
+	if (s[i] == '\n')
 		i++;
 	return (i);
 }
