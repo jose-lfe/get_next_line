@@ -6,7 +6,7 @@
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:28:17 by jose-lfe          #+#    #+#             */
-/*   Updated: 2023/12/19 16:28:30 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2023/12/26 12:34:09 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ char	*get_next_line(int fd)
 		fin = read(fd, buffer, BUFFER_SIZE);
 		if (fin < 0)
 			return (NULL);
-		ft_lstadd_back(moustache, ft_lstnew(buffer)); // exemple : hello , world , stp\nd
+		ft_lstadd_back(moustache, ft_lstnew(buffer));
 		free (buffer);
 	}
 	line = ft_fill(moustache);
 	free(buffer);
-	ft_free_moustache(moustache); // transforme la derniere perle en la premiere
+	ft_free_moustache(moustache);
 	return (line);
 }
 
@@ -80,16 +80,16 @@ void	ft_free_moustache(t_list *moustache)
 
 int	ft_check_n(t_list *lst)
 {
-    char    *check;
+	char	*check;
 
-    check = lst->content;
-    while (*check)
-    {
-        if (*check == '\n')
-            return (0);
-        check++;
-    }
-    return (1);
+	check = lst->content;
+	while (*check)
+	{
+		if (*check == '\n')
+			return (0);
+		check++;
+	}
+	return (1);
 }
 
 char	*ft_fill(t_list *moustache)
@@ -108,19 +108,19 @@ char	*ft_fill(t_list *moustache)
 
 void	*ft_calloc(size_t count, size_t size)
 {
-    unsigned char	*tmp; // on déclare une string sur un pointeur temporaire
-    size_t			i; // on déclare un index
+	unsigned char	*tmp;
+	size_t			i;
 
-    i = 0; // on initialise l'index à 0
-    tmp = (void *)malloc (count * size); // on alloue de la mémoire au pointeur en void de la taille du compte multiplié par la taille
-    if (!tmp) // si le pointeur n'existe pas, qu'il n'y a rien dedans
-        return (NULL); // on retourne NULL
-    while (i < count * size) // tant que l'index est plus petit que le compte fois la taille
-    {
-        tmp[i] = 0; // alors on met 0 à la place de l'index
-        i++; // et on continue d'incrémenter l'index
-    }
-    return (tmp); // on retourne enfin la string temporaire
+	i = 0;
+	tmp = (void *)malloc (count * size);
+	if (!tmp)
+		return (NULL);
+	while (i < count * size)
+	{
+		tmp[i] = 0;
+		i++;
+	}
+	return (tmp);
 }
 /*
 char	*ft_fill(t_list *moustache)
