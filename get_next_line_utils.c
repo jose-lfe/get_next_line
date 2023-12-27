@@ -6,7 +6,7 @@
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:59:32 by jose-lfe          #+#    #+#             */
-/*   Updated: 2023/12/19 15:27:26 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2023/12/26 14:40:47 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	tmp->next = new;
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		j;
 	int		i;
@@ -66,10 +66,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!res)
 		return (NULL);
 	j = 0;
-	while (s1[j] != '\0')
+	while (s1 && s1[j] != '\0')
 		res[i++] = s1[j++];
 	j = 0;
-	while (s2[j] != '\0' || s2[j] != '\n')
+	while (s2 && s2[j] != '\0' && s2[j] != '\n')
 		res[i++] = s2[j++];
 	if (s2[j] == '\n')
 		res[i++] = s2[j++];
@@ -84,7 +84,7 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0' || s[i] != '\n')
+	while (s[i] != '\0' && s[i] != '\n')
 		i++;
 	if (s[i] == '\n')
 		i++;
