@@ -6,7 +6,7 @@
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:39:30 by jose-lfe          #+#    #+#             */
-/*   Updated: 2023/12/27 15:03:08 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2023/12/29 14:40:57 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_next_line(int fd)
 	while (ft_check_line(stach) == 1 && end == BUFFER_SIZE)
 	{
 		end = read(fd, buffer, BUFFER_SIZE);
-		if (end < 0)
+		if (end <= 0)
 		{
 			ft_free(buffer, stach, end);
 			return (NULL);
@@ -81,7 +81,7 @@ void	ft_free(char *buffer, char *stach, int end)
 {
 	char	*tmp;
 
-	if (end < 0)
+	if (end <= 0)
 	{
 		free(buffer);
 		free(stach);
@@ -102,6 +102,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*res;
 
 	i = 0;
+	if (s1 == NULL)
+		return (ft_strdup(s2));
 	res = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!res)
 		return (NULL);
