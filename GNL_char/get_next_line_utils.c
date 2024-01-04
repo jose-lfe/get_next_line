@@ -6,7 +6,7 @@
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:37:26 by jose-lfe          #+#    #+#             */
-/*   Updated: 2024/01/04 15:41:37 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:15:32 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_substr(char *s, int start, int len)
 	int				i;
 	char			*res;
 
-	if (s == NULL || ft_strlen(s) < start)
+	if (s == NULL || ft_strlen_true(s) < start)
 		return (NULL);
 	if (len > ft_strlen_true(s + start))
 		len = ft_strlen_true(s + start);
