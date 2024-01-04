@@ -6,16 +6,15 @@
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:39:30 by jose-lfe          #+#    #+#             */
-/*   Updated: 2024/01/04 13:27:37 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:10:22 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 int		ft_check_line(char *stach);
-int		ft_core(int fd, int end, char *stach);
 void	*ft_calloc(size_t count, size_t size);
-char	*ft_free(char *buffer, char *stach, int end);
+char	*ft_free(char *stach, int end);
 char	*ft_strjoin(char *s1, char *s2);
 
 char	*get_next_line(int fd)
@@ -26,47 +25,23 @@ char	*get_next_line(int fd)
 	int			end;
 
 	end = BUFFER_SIZE;
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!buffer)
-		return (NULL);
 	while (ft_check_line(stach) == 1 && end > 0)
 	{
+		buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		if (!buffer)
+			return (NULL);
 		end = read(fd, buffer, BUFFER_SIZE);
 		if (end > 0)
 		{
 			stach = ft_strjoin(stach, buffer);
 		}
-	}
-	if (end < 0)
-	{
-		stach = ft_free(buffer, stach, end);
-		return (NULL);
+		free(buffer);
 	}
 	res = ft_substr(stach, 0, ft_strlen(stach));
-	stach = ft_free(buffer, stach, end);
-	return (res);
-}
-
-int	ft_core(int fd, int end, char *stach)
-{
-	char	*buffer;
-
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!buffer)
-		return (NULL);
-	while (ft_check_line(stach) == 1 && end > 0)
-	{
-		end = read(fd, buffer, BUFFER_SIZE);
-		if (end > 0)
-		{
-			stach = ft_strjoin(stach, buffer);
-		}
-	}
+	stach = ft_free(stach, end);
 	if (end < 0)
-	{
-		stach = ft_free(buffer, stach, end);
 		return (NULL);
-	}
+	return (res);
 }
 
 int	ft_check_line(char *stach)
@@ -103,18 +78,16 @@ void	*ft_calloc(size_t count, size_t size)
 	return (tmp);
 }
 
-char	*ft_free(char *buffer, char *stach, int end)
+char	*ft_free(char *stach, int end)
 {
 	if (end <= 0)
 	{
-		free(buffer);
 		free(stach);
 		return (NULL);
 	}
 	else
 	{
 		stach = ft_substr(stach, ft_strlen(stach), BUFFER_SIZE);
-		free(buffer);
 		return (stach);
 	}
 }
