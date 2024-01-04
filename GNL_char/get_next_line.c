@@ -6,13 +6,14 @@
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:39:30 by jose-lfe          #+#    #+#             */
-/*   Updated: 2024/01/03 15:33:50 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:27:37 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 int		ft_check_line(char *stach);
+int		ft_core(int fd, int end, char *stach);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_free(char *buffer, char *stach, int end);
 char	*ft_strjoin(char *s1, char *s2);
@@ -46,33 +47,27 @@ char	*get_next_line(int fd)
 	return (res);
 }
 
-/*
-char	*get_next_line(int fd)
+int	ft_core(int fd, int end, char *stach)
 {
-	char		*buffer;
-	char		*res;
-	static char	*stach;
-	int			end;
+	char	*buffer;
 
-	end = BUFFER_SIZE;
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
-	while (ft_check_line(stach) == 1 && end != 0)
+	while (ft_check_line(stach) == 1 && end > 0)
 	{
 		end = read(fd, buffer, BUFFER_SIZE);
-		if (end < 0)
+		if (end > 0)
 		{
-			ft_free(buffer, stach, end);
-			return (NULL);
+			stach = ft_strjoin(stach, buffer);
 		}
-		stach = ft_strjoin(stach, buffer);
 	}
-	res = ft_substr(stach, 0, ft_strlen(stach));
-	ft_free(buffer, stach, end);
-	return (res);
+	if (end < 0)
+	{
+		stach = ft_free(buffer, stach, end);
+		return (NULL);
+	}
 }
-*/
 
 int	ft_check_line(char *stach)
 {

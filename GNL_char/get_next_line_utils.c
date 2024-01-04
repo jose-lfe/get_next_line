@@ -6,7 +6,7 @@
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:37:26 by jose-lfe          #+#    #+#             */
-/*   Updated: 2024/01/03 15:29:56 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:27:37 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_substr(char const *s, int start, int len)
+char	*ft_substr(char *s, int start, int len)
 {
 	int				i;
 	char			*res;
@@ -43,6 +43,12 @@ char	*ft_substr(char const *s, int start, int len)
 	{
 		res[i] = s[start + i];
 		i++;
+	}
+	if (res[0] == '\0')
+	{
+		free(res);
+		free(s);
+		return (NULL);
 	}
 	return (res);
 }
