@@ -6,7 +6,7 @@
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 10:39:30 by jose-lfe          #+#    #+#             */
-/*   Updated: 2024/01/04 15:10:22 by jose-lfe         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:13:15 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ char	*get_next_line(int fd)
 	}
 	res = ft_substr(stach, 0, ft_strlen(stach));
 	stach = ft_free(stach, end);
-	if (end < 0)
-		return (NULL);
-	return (res);
+	if (end >= 0)
+		return (res);
+	free(res);
+	return (NULL);
 }
 
 int	ft_check_line(char *stach)
@@ -101,16 +102,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	if (s1 == NULL)
 		return (ft_strdup(s2));
-	res = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	res = malloc((ft_strlen_true(s1) + ft_strlen_true(s2) + 1) * sizeof(char));
 	if (!res)
 		return (NULL);
 	j = 0;
 	while (s1 && s1[j] != '\0')
 		res[i++] = s1[j++];
 	j = 0;
-	while (s2 && s2[j] != '\0' && s2[j] != '\n')
-		res[i++] = s2[j++];
-	if (s2[j] == '\n')
+	while (s2 && s2[j] != '\0')
 		res[i++] = s2[j++];
 	res[i] = '\0';
 	if (s1)
