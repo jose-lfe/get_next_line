@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jose-lfe <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/27 10:37:26 by jose-lfe          #+#    #+#             */
-/*   Updated: 2024/01/08 15:19:30 by jose-lfe         ###   ########.fr       */
+/*   Created: 2024/01/08 14:53:02 by jose-lfe          #+#    #+#             */
+/*   Updated: 2024/01/08 14:55:27 by jose-lfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen_true(const char *s)
 {
